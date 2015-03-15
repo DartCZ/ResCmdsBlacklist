@@ -5,6 +5,7 @@ import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -41,7 +42,13 @@ public class PlayerListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void OnPlayerCommand(PlayerCommandPreprocessEvent event){
-		Location loc = event.getPlayer().getLocation();
+		Player p = event.getPlayer();
+		
+		if(p.hasPermission("rescmdsblacklist.admin.bypass")) {
+			return;
+		}
+		
+		Location loc = p.getLocation();
 		ClaimedResidence res = Residence.getResidenceManager().getByLoc(loc);
 		
 		if(res != null){
