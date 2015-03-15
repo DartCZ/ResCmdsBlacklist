@@ -1,0 +1,8 @@
+example-residence-name: # Name of Residence
+  blacklist-commands:  # List of disallow commands
+    - /test
+    - /god
+    - /gm
+  execute-commands:
+    - /fly
+    - /god
