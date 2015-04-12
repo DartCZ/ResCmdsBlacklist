@@ -54,9 +54,24 @@ public class PlayerListener implements Listener {
 		if(res != null){
 			String message = event.getMessage();
 			List<String> disabledCommands = ResCmdsBlacklist.config().getStringList(res.getName() + ".blacklist-commands");
+			List<String> allowedCommands = ResCmdsBlacklist.config().getStringList(res.getName() + ".allowed-commands");
+			
+			for (int i = 0; i < allowedCommands.size(); i++) {
+				String allowedCommand = allowedCommands.get(i);
+				if (allowedCommand.isEmpty()) continue;
+				if (message.toLowerCase().startsWith(allowedCommand.toLowerCase())) {
+		            return;
+				}
+			} 
+			
 			for (int i = 0; i < disabledCommands.size(); i++) {
 				String disabledCommand = disabledCommands.get(i);
 				if (disabledCommand.isEmpty()) continue;
+				if(disabledCommand.equals("*")){
+					event.setCancelled(true);
+		            event.getPlayer().sendMessage(ChatColor.RED + "Tento prikaz je v teto oblasti zakazan!");
+		            break;
+				}
 				if (message.toLowerCase().startsWith(disabledCommand.toLowerCase())) {
 		            event.setCancelled(true);
 		            event.getPlayer().sendMessage(ChatColor.RED + "Tento prikaz je v teto oblasti zakazan!");
