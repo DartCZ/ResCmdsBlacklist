@@ -1,8 +1,8 @@
-example-residence-name: # Name of Residence
+test:                  # Name of Residence
   blacklist-commands:  # List of disallow commands
+    - '*'              # For blacklist all commands use '*' Now are blacklisted all commands except of command /test
+  allowed-commands:
     - /test
-    - /god
-    - /gm
-  execute-commands:
+  execute-commands:    # List of commands to execute when entering the residence
     - /fly
     - /god
